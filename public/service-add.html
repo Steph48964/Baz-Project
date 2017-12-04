@@ -1,0 +1,73 @@
+<head>
+  
+    <title>Add Service</title>
+ 	<!-- Required meta tags -->
+ 	<meta charset="utf-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
+ 	<!-- Bootstrap CSS -->
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+ 	    crossorigin="anonymous">
+ 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+ 	<link href="assets/css/style.css" rel="stylesheet">
+ 	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+
+<body>
+
+	<ul class="nav justify-content-end">
+    	<li class="nav-item">
+      		<a class="nav-link active" href="/">Baz</a>
+    	</li>
+    	<li class="nav-item">
+      		<a class="nav-link loginButton" id="btnGoogle" href="#">Login With Google</a>
+    	</li>
+  	</ul>
+  	<br>
+  	<br>
+  	<br>
+  	<br>
+	<div class="container ">
+
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<form id="cms">
+					<div class="form-group">
+						<label for="title">Title:</label>
+						<input placeholder="Title of Service" type="text" class="form-control" id="title">
+						<br />
+						<label for="body">Description of Services:</label>
+						<textarea placeholder="Description of the service you are offering" class="form-control" rows="10" id="description"></textarea>
+						<br />
+						<label for="title">Location of Service:</label>
+						<input placeholder="Location" type="text" class="form-control" id="location">
+						<br />
+						<button type="submit" class="btn btn-success submit" id="submitButton">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Custom Script -->
+	<script>
+		$("#submitButton").on("click", function(){
+			event.preventDefault()
+   			var newService = {
+   				title: $("#title").val(),
+   				description: $("#description").val(),
+   				location: $("#location").val(),
+   				image: localStorage.picture,
+   				UserId: localStorage.userid
+   			}
+   			console.log(newService);
+   			$.post("/api/services", newService)
+        		.done(function(data){
+            		console.log(data)
+            		window.location.href = "/user/" + localStorage.userid;
+        	});
+ 		})
+	</script>
+
+</body>
